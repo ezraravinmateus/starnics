@@ -162,7 +162,7 @@ export const Timer = () => {
     const spacingY = "3vh";
 
     const button = {
-        fixedPosition: "1vw",
+        fixedPosition: "15vw",
         iconSize: "5vw",
         height: "fit-content",
         width: "fit-content",
@@ -271,7 +271,7 @@ export const Timer = () => {
                 </Stack>
 
                 <Stack justify={"end"} align={"end"}>
-                    <Heading fontSize={{ base: "25vw", md: "30vw" }}>
+                    <Heading fontSize={{ base: "15vw", md: "20vw" }}>
                         {!isRunning && !isStop
                             ? getTime(START_MINUTES)
                             : currentMinutes}
