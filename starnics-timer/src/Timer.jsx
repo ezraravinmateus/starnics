@@ -149,7 +149,7 @@ export const Timer = () => {
                     setSeconds(seconds);
                     setMillis(milliSeconds);
                     setDuration(timer);
-                    timer -= 3;
+                    timer -= 2.9;
                 }
             });
             return () => clearInterval(interval);
@@ -184,7 +184,7 @@ export const Timer = () => {
     };
 
     const increaseTime = (setTime, time, incrementInterval) => {
-        if (time + incrementInterval >= 59) {
+        if (time + incrementInterval > 59) {
             setTime(0);
         } else {
             setTime(time + incrementInterval);
@@ -192,7 +192,7 @@ export const Timer = () => {
     };
 
     const decreaseTime = (setTime, time, decrementInterval) => {
-        if (time - decrementInterval <= 0) {
+        if (time - decrementInterval < 0) {
             setTime(59);
         } else {
             setTime(time - decrementInterval);
@@ -200,12 +200,7 @@ export const Timer = () => {
     };
 
     return (
-        <Stack
-            align={"center"}
-            justify={"center"}
-            height={"100vh"}
-            width={"100vw"}
-        >
+        <Stack align={"center"} justify={"center"}>
             <HStack>
                 <Stack
                     spacing={{ base: "4", sm: "8", md: spacingY }}
