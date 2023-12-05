@@ -6,12 +6,15 @@ import {
     Stack,
     Flex,
     useToast,
+    Image,
+    Divider,
 } from "@chakra-ui/react";
 import React, { useState, useEffect, Fragment } from "react";
 import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 import soundAlarm from "./assets/sounds/alarm.mp3";
 import { PitLapList } from "./PitLapList";
+import logoStarnics from "./assets/Logo Starnics.png";
 
 export const Timer = () => {
     const toast = useToast();
@@ -27,9 +30,18 @@ export const Timer = () => {
     const [START_DURATION, setStartDuration] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [isFinish, setIsFinish] = useState(false);
+    const [isZero, setIsZero] = useState(true);
 
     const [list, setList] = useState([]);
     const [id, setID] = useState(1);
+
+    if (!isRunning && !isStop && !isFinish) {
+        if (START_MINUTES || START_SECOND != 0) {
+            setIsZero(false);
+        } else {
+            setIsZero(true);
+        }
+    }
 
     const setBeginningTime = (setTime, time) => {
         setTime(time < 10 ? "0" + time : time);
@@ -184,6 +196,7 @@ export const Timer = () => {
     };
 
     const increaseTime = (setTime, time, incrementInterval) => {
+        setIsZero(false);
         if (time + incrementInterval > 59) {
             setTime(0);
         } else {
@@ -201,6 +214,19 @@ export const Timer = () => {
 
     return (
         <Stack align={"center"} justify={"center"}>
+            <Heading
+                mt={"12"}
+                fontSize={"3xl"}
+                position={"relative"}
+                alignSelf={"start"}
+                left={"24vw"}
+                color={"red.500"}
+                textDecoration={"underline"}
+                textDecorationColor={"green.500"}
+                fontStyle={"italic"}
+            >
+                STARNICS
+            </Heading>
             <HStack>
                 <Stack
                     spacing={{ base: "4", sm: "8", md: spacingY }}
@@ -361,15 +387,22 @@ export const Timer = () => {
                 {!isRunning && !isStop && (
                     <Button
                         textColor={button.textColor}
-                        backgroundColor={button.basicColor}
-                        _hover={{
-                            backgroundColor: button.basicHoverColor,
-                        }}
+                        backgroundColor={
+                            !isZero ? button.basicColor : button.ghostHoverColor
+                        }
+                        _hover={
+                            !isZero
+                                ? {
+                                      backgroundColor: button.basicHoverColor,
+                                  }
+                                : { backgroundColor: button.ghostHoverColor }
+                        }
                         borderRadius={button.borderRadius}
                         paddingX={{ base: "8", sm: "16", md: paddingButtonX }}
                         paddingY={{ base: "4", sm: "8", md: paddingButtonY }}
                         fontSize={{ base: "16", sm: "24", md: fontButton }}
-                        onClick={startHandler}
+                        onClick={!isZero ? startHandler : void 0}
+                        cursor={!isZero ? "pointer" : "not-allowed"}
                     >
                         START
                     </Button>
@@ -443,15 +476,30 @@ export const Timer = () => {
                 </Button>
             </HStack>
             {/* <p>{duration}</p> */}
-            <PitLapList
-                id={id}
-                setID={setID}
-                isRunning={isRunning}
-                isStop={isStop}
-                list={list}
-                setList={setList}
-                duration={(START_DURATION - duration) / 1000}
-            ></PitLapList>
+
+            <HStack w={"100vw"} justify={"space-around"}>
+                <Stack>
+                    {/* <Image
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Logo_AHM.svg/2560px-Logo_AHM.svg.png"
+                        w={"10vw"}
+                    ></Image> */}
+                </Stack>
+                <PitLapList
+                    id={id}
+                    setID={setID}
+                    isRunning={isRunning}
+                    isStop={isStop}
+                    list={list}
+                    setList={setList}
+                    duration={(START_DURATION - duration) / 1000}
+                ></PitLapList>
+                <Stack>
+                    {/* <Image
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg"
+                        w={"10vw"}
+                    ></Image> */}
+                </Stack>
+            </HStack>
         </Stack>
     );
 };
