@@ -12,6 +12,11 @@ import {
 import React, { useState, useEffect, Fragment } from "react";
 import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
+// Guide
+// https://codesandbox.io/p/sandbox/how-to-start-and-stop-timer-display-in-reactjs-jfo6t
+// https://codesandbox.io/p/sandbox/usetimer-react-timer-hook-ne3et?file=%2Fsrc%2FApp.js
+// https://codesandbox.io/p/sandbox/countdown-timer-action-start-stop-resume-reset-9jweo
+
 import soundAlarm from "./assets/sounds/alarm.mp3";
 import { PitLapList } from "./PitLapList";
 import logoStarnics from "./assets/Logo Starnics.png";
